@@ -20,4 +20,13 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function getAll($filter = null)
+    {
+        if (!$filter) {
+            return $this->all();
+        }
+
+        return $this->where('name', 'LIKE', "%$filter%")->get();
+    }
 }
