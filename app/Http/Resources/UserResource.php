@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'is_admin' => $this->active == 1 ? true : false,
+            'is_admin' => $this->is_admin == 1 ? true : false,
             'created_at' => $this->created_at,
             'token' => $this->token,
         ];
