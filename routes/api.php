@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +29,6 @@ Route::get('/users', [AuthController::class, 'index']);
 
 
 Route::apiResource('categories', CategoryController::class);
+Route::get('/posts/{post}/comments', [PostController::class, 'showWithComments'])->name('posts.showWithComments');
+Route::apiResource('posts', PostController::class);
+Route::apiResource('comments', CommentController::class);

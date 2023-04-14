@@ -12,8 +12,16 @@ class Comment extends Model
     protected $fillable = [
         'user_id',
         'post_id',
-        'comment',
+        'content',
     ];
+
+    /**
+     * Get the user that owns the post.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Get the post that owns the comment.
@@ -21,5 +29,14 @@ class Comment extends Model
     public function post()
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function getAll($filter = null)
+    {
+        if (!$filter) {
+            return $this->all();
+        }
+
+        return $this->where('content', 'LIKE', "%$filter%")->get();
     }
 }

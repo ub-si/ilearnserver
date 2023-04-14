@@ -32,4 +32,19 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function getAll($filter = null)
+    {
+        if (!$filter) {
+            return $this->paginate();
+        }
+
+        return $this->where('title', 'LIKE', "%$filter%")
+        ->orWhere('content', 'LIKE', "%$filter%")
+        ->paginate();
+    }
 }
