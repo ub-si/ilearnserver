@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->foreignIdFor(Category::class);
             $table->string('title');
             $table->text('content');
-            $table->string('photo_path', 2048);
+            $table->string('photo_path', 2048)->nullable();
             $table->timestamps();
         });
     }
