@@ -23,12 +23,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/validate-token', [AuthController::class, 'validateToken']);
+    
+    // Minhas rotas
+    Route::get('/users', [AuthController::class, 'index']);
+    Route::apiResource('categories', CategoryController::class);
+    Route::get('/posts/{post}/comments', [PostController::class, 'showWithComments'])->name('posts.showWithComments');
+    Route::apiResource('posts', PostController::class);
+    Route::apiResource('comments', CommentController::class);
 });
 
-Route::get('/users', [AuthController::class, 'index']);
-
-
-Route::apiResource('categories', CategoryController::class);
-Route::get('/posts/{post}/comments', [PostController::class, 'showWithComments'])->name('posts.showWithComments');
-Route::apiResource('posts', PostController::class);
-Route::apiResource('comments', CommentController::class);
