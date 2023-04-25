@@ -39,6 +39,7 @@ class PostController extends Controller
         $post = $this->post->create($request->all());
 
         $resource = new PostResource($post);
+
         return $resource->response()->setStatusCode(201);
     }
 
@@ -51,6 +52,7 @@ class PostController extends Controller
         if ($post) {
             return new PostResource($post);
         }
+
         return response()->json(['error' => '404 Not Found'], 404);
     }
 
@@ -63,6 +65,7 @@ class PostController extends Controller
         if ($post) {
             return new PostResource($post);
         }
+
         return response()->json(['error' => '404 Not Found'], 404);
     }
 
@@ -74,8 +77,10 @@ class PostController extends Controller
         $post = $this->post->find($id);
         if ($post) {
             $post->update($request->all());
+
             return new PostResource($post);
         }
+
         return response()->json(['error' => '404 Not Found'], 404);
     }
 
@@ -87,8 +92,10 @@ class PostController extends Controller
         $post = $this->post->find($id);
         if ($post) {
             $post->delete();
+
             return response()->json([], 204);
         }
+
         return response()->json(['error' => '404 Not Found'], 404);
     }
 }
