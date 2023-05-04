@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,15 +19,8 @@ class AuthController extends Controller
         return UserResource::collection(User::all());
     }
     
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'is_admin' => 'nullable|boolean',
-            'password' => 'required|string|confirmed'
-        ]);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -40,13 +35,8 @@ class AuthController extends Controller
         return $resource->response()->setStatusCode(201);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string'
-        ]);
-
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
