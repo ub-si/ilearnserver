@@ -36,7 +36,13 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post = $this->post->create($request->all());
+        $data = $request->all();
+
+        /** @var User $user */
+        $user = Auth()->user();
+        $data['user_id'] = $user->id;
+        
+        $post = $this->post->create($data);
 
         $resource = new PostResource($post);
 

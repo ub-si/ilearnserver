@@ -36,7 +36,13 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request)
     {
-        $comment = $this->comment->create($request->all());
+        $data = $request->all();
+
+        /** @var User $user */
+        $user = Auth()->user();
+        $data['user_id'] = $user->id;
+        
+        $comment = $this->comment->create($data);
 
         $resource = new CommentResource($comment);
         return $resource->response()->setStatusCode(201);
