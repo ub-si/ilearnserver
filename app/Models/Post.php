@@ -41,11 +41,12 @@ class Post extends Model
     public function getAll($filter = null)
     {
         if (!$filter) {
-            return $this->paginate();
+            return $this->orderBy('id', 'desc')->paginate();
         }
 
         return $this->where('title', 'LIKE', "%$filter%")
         ->orWhere('content', 'LIKE', "%$filter%")
+        ->orderBy('id', 'desc')
         ->paginate();
     }
 }
