@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class PostController extends Controller
 {
@@ -28,6 +29,21 @@ class PostController extends Controller
     {
         return PostResource::collection(
             $this->post->getAll($request->filter)
+        );
+    }
+
+    /**
+     * Display a listing of the resource where logged user has comment
+     */
+    public function withUserComment()
+    {
+        /** @var User $user */
+        $user = Auth()->user();
+
+        return PostResource::collection(
+            $this->post->whereHas('comments', function (Builder $query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->get()
         );
     }
 

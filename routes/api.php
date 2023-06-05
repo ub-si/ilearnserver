@@ -27,8 +27,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Minhas rotas
     Route::get('/users', [AuthController::class, 'index']);
     Route::apiResource('categories', CategoryController::class);
+    Route::get('/posts/user/comment', [PostController::class, 'withUserComment'])->name('posts.withUserComment');
     Route::get('/posts/{post}/comments', [PostController::class, 'showWithComments'])->name('posts.showWithComments');
     Route::apiResource('posts', PostController::class);
     Route::apiResource('comments', CommentController::class);
 });
-
